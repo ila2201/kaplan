@@ -1,0 +1,135 @@
+/* Основные стили */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+.logo {
+    text-align: left;
+    color: rgb(53, 197, 142);
+    font-size: 250%;
+    width: 80%;
+    margin: 50px auto;
+}
+/* Контейнер */
+.container {
+    width: 100%;
+    max-width: 500px;
+    background: white;  
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+.container1 {
+    width: 100%;
+    max-width: 500px;
+    background: white;  
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+/* Поле ввода и кнопка */
+.input-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+/* Список заметок */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background: #ddd;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li button {
+    background: #eee;
+    color: red;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+#noteList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#noteList li {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button {
+    padding: 5px 5px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#clearAll {
+    padding: 5px 5px;
+    background-color: #FF7b55;
+}
+
+#clearAll:hover{
+    background-color: #FF7b00;
+}
+
+/* Анимация удаления */
+.fade-out {
+    opacity: 0;
+    transition: opacity 1s ease-out;
+}
+
+category_prop {
+    color: forestgreen;
+}
+
+category {
+    color :#FF7b00;
+}
+
+.container {
+    transition: transform 0.7s ease-in-out;
+}
+.container1 {
+    transition: transform 0.7s ease-in-out;
+}
+
+.shift-left {
+  
+}
+
+.slide-up {
+  
+}

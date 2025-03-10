@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каплан</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="logo">
+        <h1>Каплан</h1>
+    </div>
+    <div class="container">
+        <h1>Калькулятор</h1>
+        <div class="input-container">
+            <!-- Поле для ввода текста заметки -->
+            <input type="text" id="noteInput" placeholder="Добавьте категорию">
+
+            <!-- Выбор категории -->
+            <select id="categorySelect">
+            <option>Важность</option>
+            <option>Очень важно</option>
+            <option>Важно</option>
+            <option>Нужно</option>
+            <option>Маловажно</option>
+            <option>Не важно</option>
+            </select>
+
+            <!-- Кнопка для добавления заметки -->
+            <button id="addNote">Добавить</button>
+            
+        </div>
+        <ul id="noteList"></ul>
+        <button id="clearAll">Очистить всё</button>
+        <p></p>
+        <button id="Go">Рассчитать</button>
+    </div>
+    <div class="container1">
+        <div id="window"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
