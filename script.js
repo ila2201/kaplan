@@ -5,6 +5,7 @@ const delnote = document.getElementById("clearAll");
 const categorySelect = document.getElementById("categorySelect");
 const tablet = document.getElementById("window");
 const go = document.getElementById("Go");
+const divError = document.getElementById("divError");
 const perv = document.getElementsByClassName("container");
 
 document.addEventListener("DOMContentLoaded", start);
@@ -12,8 +13,9 @@ addNoteBtn.addEventListener("click", addNote);
 delnote.addEventListener("click", delAll);
 go.addEventListener("click", calc);
 
+
 function start(){
-    renderNotes()
+    renderNotes();
     let resultHTML = `<h3>Здесь будет распределение</h3>`;
     tablet.innerHTML = resultHTML;
 }
@@ -32,8 +34,10 @@ const categoryWeights = {
     "Не важно": 1
 };
 
-function showError(message) {
-    alert(message);
+function showError(massege) {
+    divError.innerHTML = massege
+    setTimeout(() => divError.style.right = "0", 100);
+    setTimeout(() => divError.style.right = "-300px", 2100);
 }
 
 function addNote() {
@@ -44,7 +48,7 @@ function addNote() {
         return showError("Выберите категорию");
     }
 
-    if (text === "") return;
+    if (text === "") return showError("Напишите категорию");
 
     const note = {
         id: Date.now(),
@@ -83,7 +87,7 @@ function renderNotes() {
         const noteElement = document.createElement("li");
         noteElement.innerHTML = `
             <span class="note-text">${note.text}</span>
-            <span class="note-category">${note.category}
+            <span class="note-category">${note.category}</span>
             <button onclick="deleteNote(${note.id})">🗑</button>
         `;
         noteElement.setAttribute("data-id", note.id);
@@ -100,7 +104,7 @@ function deleteNote(noteId) {
 
     if (noteElement) {
         noteElement.classList.add("fade-out");
-        setTimeout(() => noteElement.remove(), 900);
+        setTimeout(() => noteElement.remove(), 500);
     }
 }
 
@@ -111,7 +115,7 @@ function calc() {
     let savedNotes = JSON.parse(localStorage.getItem("notes")) || [];
 
     if (savedNotes.length === 0) {
-        showError("Нет сохраненных заметок.");
+        showError("Добавьте хотя бы одну категорию");
         return;
     }
 
@@ -146,7 +150,7 @@ function calc() {
     savedNotes.sort((a, b) => categoryWeights[b.category] - categoryWeights[a.category]);
 
     // Вывод результатов
-    let resultHTML = `<h3>Распределение бюджета:</h3>`;
+    let resultHTML = '<div id="back_h3"><h3>Распределение бюджета:</h3><button id="back">Назад</button></div>';
     savedNotes.forEach(note => {
         resultHTML += `
             <div style="background: #eee; padding: 10px; margin: 5px 0; border-radius: 5px;">
@@ -157,6 +161,24 @@ function calc() {
     resultHTML += '<p></p><button id="dinamic">Рассчитать аналитику</button>';
     tablet.innerHTML = resultHTML;
     perv.innerHTML = " ";
-}
 
+
+    const dinamic = document.getElementById("dinamic");
+    dinamic.addEventListener("click", transformConteiner);
+
+    const back = document.getElementById("back");
+    back.addEventListener("click", transformConteinerBack);
+
+    function transformConteiner() {
+        perv[0].style.display = "none";
+        bac = document.getElementById("back");
+        bac.style.opacity = 1;
+    }
+
+    function transformConteinerBack() {
+        perv[0].style.display = "block"
+        bac = document.getElementById("back");
+        bac.style.opacity = 0;
+    }
+}
 
