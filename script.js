@@ -18,6 +18,7 @@ function start(){
     renderNotes();
     let resultHTML = `<h3>Здесь будет распределение</h3>`;
     tablet.innerHTML = resultHTML;
+    divError.style.opacity = 0;
 }
 noteInput.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
@@ -36,6 +37,7 @@ const categoryWeights = {
 
 function showError(massege) {
     divError.innerHTML = massege
+    divError.style.opacity = 1;
     setTimeout(() => divError.style.right = "0", 100);
     setTimeout(() => divError.style.right = "-300px", 2100);
 }
