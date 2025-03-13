@@ -14,6 +14,8 @@ addNoteBtn.addEventListener("click", addNote);
 delnote.addEventListener("click", delAll);
 go.addEventListener("click", calc);
 
+let weightedNotes = [];
+
 function start(){
     renderNotes()
     let resultHTML = `<h3>Здесь будет распределение</h3>`;
@@ -73,8 +75,6 @@ function saveNoteToLocalStorage(note) {
 function delAll() {
     localStorage.removeItem("notes");
     renderNotes();
-    tablet.innerHTML = "<h2>Удалено</h2>";
-    setTimeout(() => tablet.innerHTML = "", 800);
 }
 
 function renderNotes() {
@@ -89,9 +89,9 @@ function renderNotes() {
     savedNotes.forEach(note => {
         const noteElement = document.createElement("li");
         noteElement.innerHTML = `
-            <span class="note-text">${note.text}</span>
-            <span class="note-category">${note.category}
-            <button onclick="deleteNote(${note.id})">🗑</button>
+            <span class="note-text"><strong>${note.text}</strong></span>
+            <span class="note-category">${note.category}</span>
+            <button class="note-but" onclick="deleteNote(${note.id})">🗑️</button>
         `;
         noteElement.setAttribute("data-id", note.id);
         noteList.appendChild(noteElement);
@@ -140,26 +140,70 @@ function calc() {
     let sumGeomMeans = geomMeans.reduce((acc, val) => acc + val, 0);
     let weights = geomMeans.map(val => val / sumGeomMeans);
 
-    // Добавляем веса в объекты заметок
-    savedNotes = savedNotes.map((note, index) => ({
+    // Добавляем веса в объекты заметок и сохраняем в глобальной переменной
+    weightedNotes = savedNotes.map((note, index) => ({
         ...note,
         weight: weights[index]
     }));
 
-    // Сортируем заметки по приоритету категорий (очень важно → важно → ... → не важно)
-    savedNotes.sort((a, b) => categoryWeights[b.category] - categoryWeights[a.category]);
+    // Сортировка заметок по приоритету (если необходимо)
+    weightedNotes.sort((a, b) => categoryWeights[b.category] - categoryWeights[a.category]);
 
     // Вывод результатов
     let resultHTML = '<h3>Распределение бюджета:</h3>';
-    savedNotes.forEach(note => {
+    weightedNotes.forEach(note => {
         resultHTML += `
-            <div style="background: #eee; padding: 10px; margin: 5px 0; border-radius: 5px;">
-                ${note.text} (${note.category}): <strong>${(note.weight * 100).toFixed(2)}%</strong>
+            <div style="background: #ddd; padding: 10px; margin: 5px 0; border-radius: 5px;">
+                ${note.text} : <strong>${(note.weight * 100).toFixed(2)}%</strong>
             </div>
         `;
     });
+    resultHTML += `
+        <input type="text" id="rubInput" placeholder="Введите сумму">
+        <button class="Go-fin">Распределить</button>
+        <span class="VestiSum"><h3>Введите ваш ежемесячный доход, и система автоматически распределит его по выбранным категориям</h3></span>
+    `;
     tablet.innerHTML = resultHTML;
     perv.innerHTML = " ";
+
+    // Назначаем обработчик для кнопки "Распределить"
+    setTimeout(() => {
+        document.querySelector(".Go-fin").addEventListener("click", distributeBudget);
+    }, 100);
 }
 
+
+function distributeBudget() {
+    let inputElement = document.getElementById("rubInput");
+    let budget = parseFloat(inputElement.value);
+
+    if (isNaN(budget) || budget <= 0) {
+        showError("Введите корректную сумму");
+        return;
+    }
+
+    if (!weightedNotes || weightedNotes.length === 0) {
+        showError("Сначала рассчитайте распределение");
+        return;
+    }
+
+    let resultHTML = `<h3>Распределение бюджета для ${budget}₽:</h3>`;
+    weightedNotes.forEach(note => {
+        let categorySum = (budget * note.weight).toFixed(2);
+        resultHTML += `
+            <div style="background: #ddd; padding: 10px; margin: 5px 0; border-radius: 5px;">
+                ${note.text} (${(note.weight * 100).toFixed(2)}%): <strong>${categorySum}₽</strong>
+            </div>
+        `;
+    });
+    resultHTML += `
+        <input type="text" id="rubInput" placeholder="Введите сумму">
+        <button class="Go-fin">Распределить</button>
+        <span class="VestiSum"><h3>Введите ваш ежемесячный доход, и система автоматически распределит его по выбранным категориям</h3></span>
+    `;
+    tablet.innerHTML = resultHTML;
+    setTimeout(() => {
+        document.querySelector(".Go-fin").addEventListener("click", distributeBudget);
+    }, 100);
+}
 

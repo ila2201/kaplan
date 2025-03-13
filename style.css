@@ -1,13 +1,12 @@
 * {
     box-sizing: border-box;
+
 }
 
-
-/* Основные стили */
 body {
     width: 100%;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #cfcfcf;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -25,40 +24,48 @@ main {
 }
 .logo {
     text-align: left;
-    color: rgb(53, 197, 142);
+    color: rgb(28, 153, 103);
     font-size: 250%;
     margin-left: 50px;
+    margin-top: 0px;
 }
-/* Контейнер */
+
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    width: 30%;
     background: white;  
     padding: 20px;
+    margin: 20px auto;
+    margin-right: 0px;
     border-radius: 30px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
 .container1 {
-    width: 100%;
+    width: 30%;
     background: white;  
     margin: 50px auto;
+    margin-left: 5%;
     padding: 20px;
     border-radius: 30px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
-.container2 {
-    width: 100%;
-}
-/* Поле ввода и кнопка */
+
 .input-container {
     width: 100%;
     display: flex;
     gap: 10px;
 }
 
+.note-text, .note-category {
+    font-size: 20px;
+}
 
+.note-but {
+    font-size: 15px;
+    background-color: rgb(235, 66, 66);
+}
 input {
     flex-grow: 2;
     padding: 10px;
@@ -73,8 +80,6 @@ input {
     flex-grow: 1;
 }
 
-
-/* Список заметок */
 ul {
     list-style: none;
     width: 100%;
@@ -92,14 +97,14 @@ li button {
 }
 
 #noteList li {
-    margin: 10px 0;
+    margin: 10px;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: row;  
+    justify-content: space-around;
     background: #ddd;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 button {
@@ -123,6 +128,21 @@ button:active {
 #clearAll {
     background-color: #FF7b55;
     transition: all ease 0.2s;
+    cursor: pointer;
+    width: 170px;
+    height: 40px;
+}
+
+#Go {
+    transition: all ease 0.2s;
+    cursor: pointer;
+    width: 170px;
+    height: 40px;
+}
+.Go-fin {
+    margin: 10px;
+    width: 200px;
+    height: 40px;
 }
 
 #clearAll:hover{
@@ -132,8 +152,6 @@ button:active {
 #clearAll:active{
     background-color: #c76305;
 }
-
-/* Ошибка */
 
 #divError {
     width: 300px;
@@ -150,7 +168,6 @@ button:active {
     transition: all ease 0.5s;
 }
 
-/* Анимация удаления */
 .fade-out {
     opacity: 0;
     transition: opacity 1s ease-out;
@@ -164,4 +181,11 @@ button:active {
 .transform-container {
     transition: all ease 1s;
     transform: translate3d(0px, -300px, 0px);
+}
+
+.button-group {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
