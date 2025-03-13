@@ -35,11 +35,15 @@ const categoryWeights = {
     "Не важно": 1
 };
 
+function closeError() {
+    divError.style.right = "-300px";
+    divError.style.opacity = 0;
+}
 function showError(massege) {
     divError.innerHTML = massege
     divError.style.opacity = 1;
     setTimeout(() => divError.style.right = "0", 100);
-    setTimeout(() => divError.style.right = "-300px", 2100);
+    setTimeout(closeError, 2100);
 }
 
 function addNote() {
