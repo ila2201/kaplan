@@ -7,18 +7,17 @@ const tablet = document.getElementById("window");
 const go = document.getElementById("Go");
 const divError = document.getElementById("divError");
 const perv = document.getElementsByClassName("container");
+const vtor = document.getElementsByClassName("container1");
 
 document.addEventListener("DOMContentLoaded", start);
 addNoteBtn.addEventListener("click", addNote);
 delnote.addEventListener("click", delAll);
 go.addEventListener("click", calc);
 
-
 function start(){
-    renderNotes();
+    renderNotes()
     let resultHTML = `<h3>Здесь будет распределение</h3>`;
     tablet.innerHTML = resultHTML;
-    divError.style.opacity = 0;
 }
 noteInput.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
@@ -35,15 +34,13 @@ const categoryWeights = {
     "Не важно": 1
 };
 
-function closeError() {
-    divError.style.right = "-300px";
-    divError.style.opacity = 0;
-}
 function showError(massege) {
     divError.innerHTML = massege
-    divError.style.opacity = 1;
+    setTimeout(() => divError.style.display = "inline", 10);
     setTimeout(() => divError.style.right = "0", 100);
-    setTimeout(closeError, 2100);
+    setTimeout(() => divError.style.right = "-300px", 1500);
+    setTimeout(() => divError.style.display = "none", 2000);
+    
 }
 
 function addNote() {
@@ -93,7 +90,7 @@ function renderNotes() {
         const noteElement = document.createElement("li");
         noteElement.innerHTML = `
             <span class="note-text">${note.text}</span>
-            <span class="note-category">${note.category}</span>
+            <span class="note-category">${note.category}
             <button onclick="deleteNote(${note.id})">🗑</button>
         `;
         noteElement.setAttribute("data-id", note.id);
@@ -110,18 +107,15 @@ function deleteNote(noteId) {
 
     if (noteElement) {
         noteElement.classList.add("fade-out");
-        setTimeout(() => noteElement.remove(), 500);
+        setTimeout(() => noteElement.remove(), 900);
     }
 }
 
 function calc() {
-    document.querySelector(".container").classList.add("shift-left");
-    document.querySelector(".container1").classList.add("slide-up");
-
     let savedNotes = JSON.parse(localStorage.getItem("notes")) || [];
 
     if (savedNotes.length === 0) {
-        showError("Добавьте хотя бы одну категорию");
+        showError("Нет сохраненных данных");
         return;
     }
 
@@ -156,7 +150,7 @@ function calc() {
     savedNotes.sort((a, b) => categoryWeights[b.category] - categoryWeights[a.category]);
 
     // Вывод результатов
-    let resultHTML = '<div id="back_h3"><h3>Распределение бюджета:</h3><button id="back">Назад</button></div>';
+    let resultHTML = '<h3>Распределение бюджета:</h3>';
     savedNotes.forEach(note => {
         resultHTML += `
             <div style="background: #eee; padding: 10px; margin: 5px 0; border-radius: 5px;">
@@ -164,27 +158,8 @@ function calc() {
             </div>
         `;
     });
-    resultHTML += '<p></p><button id="dinamic">Рассчитать аналитику</button>';
     tablet.innerHTML = resultHTML;
     perv.innerHTML = " ";
-
-
-    const dinamic = document.getElementById("dinamic");
-    dinamic.addEventListener("click", transformConteiner);
-
-    const back = document.getElementById("back");
-    back.addEventListener("click", transformConteinerBack);
-
-    function transformConteiner() {
-        perv[0].style.display = "none";
-        bac = document.getElementById("back");
-        bac.style.opacity = 1;
-    }
-
-    function transformConteinerBack() {
-        perv[0].style.display = "block"
-        bac = document.getElementById("back");
-        bac.style.opacity = 0;
-    }
 }
+
 
