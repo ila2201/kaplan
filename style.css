@@ -6,7 +6,7 @@
 body {
     width: 100%;
     font-family: Arial, sans-serif;
-    background-color: #cfcfcf;
+    background-color: #bebebe;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -24,7 +24,7 @@ main {
 }
 .logo {
     text-align: left;
-    color: rgb(28, 153, 103);
+    color: rgb(33, 148, 102);
     font-size: 250%;
     margin-left: 50px;
     margin-top: 0px;

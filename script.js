@@ -27,7 +27,6 @@ noteInput.addEventListener("keypress", function (event) {
     }
 });
 
-// Приоритет категорий и их веса для метода аналитической иерархии
 const categoryWeights = {
     "Очень важно": 9,
     "Важно": 7,
@@ -62,8 +61,8 @@ function addNote() {
     };
 
     saveNoteToLocalStorage(note);
-    renderNotes(); // Обновляем отображение после добавления новой заметки
-    noteInput.value = ""; // Очищаем поле ввода
+    renderNotes(); 
+    noteInput.value = ""; 
 }
 
 function saveNoteToLocalStorage(note) {
@@ -122,7 +121,6 @@ function calc() {
     let n = savedNotes.length;
     let matrix = Array.from({ length: n }, () => Array(n).fill(1));
 
-    // Заполняем матрицу парных сравнений
     for (let i = 0; i < n; i++) {
         for (let j = 0; j < n; j++) {
             if (i !== j) {
@@ -131,25 +129,21 @@ function calc() {
         }
     }
 
-    // Вычисляем геометрическое среднее
     let geomMeans = matrix.map(row => {
         return Math.pow(row.reduce((acc, val) => acc * val, 1), 1 / n);
     });
 
-    // Вычисляем нормализованные веса
     let sumGeomMeans = geomMeans.reduce((acc, val) => acc + val, 0);
     let weights = geomMeans.map(val => val / sumGeomMeans);
 
-    // Добавляем веса в объекты заметок и сохраняем в глобальной переменной
     weightedNotes = savedNotes.map((note, index) => ({
         ...note,
         weight: weights[index]
     }));
 
-    // Сортировка заметок по приоритету (если необходимо)
     weightedNotes.sort((a, b) => categoryWeights[b.category] - categoryWeights[a.category]);
 
-    // Вывод результатов
+
     let resultHTML = '<h3>Распределение бюджета:</h3>';
     weightedNotes.forEach(note => {
         resultHTML += `
@@ -166,7 +160,6 @@ function calc() {
     tablet.innerHTML = resultHTML;
     perv.innerHTML = " ";
 
-    // Назначаем обработчик для кнопки "Распределить"
     setTimeout(() => {
         document.querySelector(".Go-fin").addEventListener("click", distributeBudget);
     }, 100);
@@ -187,7 +180,7 @@ function distributeBudget() {
         return;
     }
 
-    let resultHTML = `<h3>Распределение бюджета для ${budget}₽:</h3>`;
+    let resultHTML = `<h3>Распределение бюджета для ${budget}₽ :</h3>`;
     weightedNotes.forEach(note => {
         let categorySum = (budget * note.weight).toFixed(2);
         resultHTML += `
