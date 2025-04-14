@@ -189,11 +189,11 @@ function distributeBudget() {
             </div>
         `;
     });
-    resultHTML += `
-        <input type="text" id="rubInput" placeholder="Введите сумму">
-        <button class="Go-fin">Распределить</button>
-        <span class="VestiSum"><h3>Введите ваш ежемесячный доход, и система автоматически распределит его по выбранным категориям</h3></span>
-    `;
+    resultHTML +=   `
+    <input type="text" id="rubInput" placeholder="Введите сумму">
+    <button class="Go-fin">Распределить</button>
+    <span class="VestiSum"><h3>Введите ваш ежемесячный доход, и система автоматически распределит его по выбранным категориям</h3></span>
+`;
     tablet.innerHTML = resultHTML;
     setTimeout(() => {
         document.querySelector(".Go-fin").addEventListener("click", distributeBudget);
